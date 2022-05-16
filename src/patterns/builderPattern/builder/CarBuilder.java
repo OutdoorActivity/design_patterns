@@ -1,14 +1,10 @@
 package patterns.builderPattern.builder;
 
 
-import patterns.builderPattern.builder.Builder;
 import patterns.builderPattern.car.Car;
 import patterns.builderPattern.car.CarType;
 import patterns.builderPattern.engine.Engine;
 import patterns.builderPattern.transmission.Transmission;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CarBuilder implements Builder {
     private CarType carType;
@@ -16,27 +12,41 @@ public class CarBuilder implements Builder {
     private Engine engine;
     private Transmission transmission;
 
+    private CarBuilder() {
+    }
+
+    public static CarBuilder getCarBuilder() {
+        return new CarBuilder();
+    }
+
     @Override
-    public void setCarType(CarType carType) {
+    public Builder setCarType(CarType carType) {
         this.carType = carType;
+        return this;
     }
 
     @Override
-    public void setSeats(int seats) {
+    public Builder setSeats(int seats) {
         this.seats = seats;
+        return this;
     }
 
     @Override
-    public void setEngine(Engine engine) {
+    public Builder setEngine(Engine engine) {
         this.engine = engine;
+        return this;
     }
 
     @Override
-    public void setTransmission(Transmission transmission) {
+    public Builder setTransmission(Transmission transmission) {
         this.transmission = transmission;
+        return this;
     }
 
-    public Car getResult() {
+    @Override
+    public Car build() {
         return new Car(carType, seats, engine, transmission);
     }
+
+
 }
